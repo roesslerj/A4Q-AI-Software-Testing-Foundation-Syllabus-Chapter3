@@ -1,4 +1,5 @@
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -23,22 +24,26 @@ import javax.xml.stream.events.EndElement;
 import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
 
+import org.apache.commons.io.IOUtils;
+
 public abstract class XmlTransformer {
 
 	private static final String BR = System.getProperty("line.separator");
 
 	protected final XMLEventFactory eventFactory = XMLEventFactory.newInstance();
 
-	public final InputStream transform(final InputStream inputStream) {
+	public final String transform(String xml) {
 		try {
 			// Since these files can become pretty big, storing them in memory
 			// might lead to OutOfMemoryErrors.
+			final InputStream inputStream = new ByteArrayInputStream( xml.getBytes() );
 			final File tmpFile = File.createTempFile("retest-migration-", ".xml.lz4");
 			tmpFile.deleteOnExit();
 			System.out.println("Creating temporary file " + tmpFile + " for XML migration. File will be deleted upon exit.");
 
 			convertAndWriteToFile(inputStream, tmpFile);
-			return new FileInputStream(tmpFile);
+			InputStream transformed = new FileInputStream(tmpFile);
+			return IOUtils.toString( transformed, "UTF-8" );
 		} catch (final IOException e) {
 			throw new RuntimeException(e);
 		}
