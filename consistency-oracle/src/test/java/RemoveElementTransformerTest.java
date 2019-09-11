@@ -11,11 +11,12 @@ import org.junit.Test;
 
 public class RemoveElementTransformerTest {
 
+	final RemoveElementTransformer transformer = new RemoveElementTransformer("parent", "remove");
+
 	@Test
 	public void extended_xml_should_be_removed_correctly() throws Exception {
 		// Prepare state
 		final String xml = FileUtils.readFileToString(new File("src/test/resources/minimal-input.xml"), UTF_8);
-		final RemoveElementTransformer transformer = new RemoveElementTransformer("parent", "remove");
 
 		// Execute feature under test
 		final String result = transformer.transform(xml);
@@ -29,7 +30,6 @@ public class RemoveElementTransformerTest {
 	public void extended_xml_should_be_removed_correctly_Using_Approvals() throws Exception {
 		// Prepare state
 		final String xml = FileUtils.readFileToString(new File("src/test/resources/minimal-input.xml"), UTF_8);
-		final RemoveElementTransformer transformer = new RemoveElementTransformer("parent", "remove");
 
 		// Execute feature under test
 		final String result = transformer.transform(xml);
