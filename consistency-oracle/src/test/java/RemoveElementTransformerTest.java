@@ -14,7 +14,7 @@ public class RemoveElementTransformerTest {
 	final RemoveElementTransformer transformer = new RemoveElementTransformer("parent", "remove");
 
 	@Test
-	public void extended_xml_should_be_removed_correctly() throws Exception {
+	public void xml_should_be_removed() throws Exception {
 		// Prepare state
 		final String xml = FileUtils.readFileToString(new File("src/test/resources/minimal-input.xml"), UTF_8);
 
@@ -27,7 +27,7 @@ public class RemoveElementTransformerTest {
 	}
 
 	@Test
-	public void extended_xml_should_be_removed_correctly_Using_Approvals() throws Exception {
+	public void xml_should_be_removed_verify_with_Approvals() throws Exception {
 		// Prepare state
 		final String xml = FileUtils.readFileToString(new File("src/test/resources/minimal-input.xml"), UTF_8);
 
